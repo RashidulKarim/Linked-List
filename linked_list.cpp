@@ -13,11 +13,12 @@ public:
 class LinkedList
 {
     Node *head;
-    int sz = 0;
+    int sz;
 public:
     LinkedList()
     {
         head = NULL;
+        sz = 0;
     }
 
     Node * createNode(int data)
@@ -100,6 +101,73 @@ public:
         head = second;
 
     }
+
+    void insertAtAnyIndex(int data, int index)
+    {
+        if(index < 0 || index > sz)
+            return;
+        if( index  == 0)
+        {
+           InsertAtHead(data);
+           return;
+        }
+        int idx = 0;
+        Node * node = head;
+        Node * newNode = createNode(data);
+
+        while(idx <  index)
+        {
+            if(index -1 == idx)
+            {
+                newNode->next = node->next;
+                node ->next = newNode;
+                sz++;
+                return;
+            }
+            node = node->next;
+            idx++;
+        }
+    }
+
+    void deleteFormHead()
+    {
+        if(head == NULL)
+            return;
+        Node * a = head;
+        head = a->next;
+        sz--;
+        delete a;
+    }
+
+    void deleteAnyIndex(int index)
+    {
+        if(index < 0 || index > sz)
+        {
+            return;
+        }
+        if(index == 0)
+        {
+            deleteFormHead();
+            return;
+        }
+
+        Node * a = head;
+        int idx = 0;
+
+        while(idx < index)
+        {
+            if(idx == index -1)
+            {
+                sz--;
+                Node * b = a->next;
+                a->next = b->next;
+                delete b;
+                return;
+            }
+            idx++;
+            a = a->next;
+        }
+    }
 };
 
 
@@ -122,8 +190,11 @@ int main()
     l.printReverse();
     l.Traverse();
     l.swapFirst();
+    l.insertAtAnyIndex(500, 5);
+    l.deleteFormHead();
+    l.deleteAnyIndex(2);
     l.Traverse();
-    l.printReverse();
+    //l.printReverse();
 
 
 
