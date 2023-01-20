@@ -108,8 +108,8 @@ public:
             return;
         if( index  == 0)
         {
-           InsertAtHead(data);
-           return;
+            InsertAtHead(data);
+            return;
         }
         int idx = 0;
         Node * node = head;
@@ -168,6 +168,24 @@ public:
             a = a->next;
         }
     }
+
+    void insertAfterValue(int value, int data)
+    {
+        Node * node = head;
+        while(node != NULL)
+        {
+            if(value == node->data)
+            {
+                Node * newNode = createNode(data);
+                newNode->next = node->next;
+                node->next = newNode;
+                sz++;
+                return;
+            }
+            node = node->next;
+        }
+        cout<<value<<" doesn't exist in Linked-list\n";
+    }
 };
 
 
@@ -193,7 +211,9 @@ int main()
     l.insertAtAnyIndex(500, 5);
     l.deleteFormHead();
     l.deleteAnyIndex(2);
+    l.insertAfterValue(30, 1000);
     l.Traverse();
+    cout<<l.getSize()<<"\n";
     //l.printReverse();
 
 
